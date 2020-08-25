@@ -21,13 +21,14 @@ Route::group(['middleware'=>['web', 'auth']],function(){
     Route::get('/', function(){
 	   return view('welcome');
    });
-
+  Route::post('/home', "HomeController@store");
   Route::get('/home', function(){   
   	if(Auth::user()->manager==0){
   	     return view('home');	  	     
   	}else{
+  		$posts['posts'] = \App\Post::all();
   		$users['users'] = \App\User::all();
-  	     return view('managerhome', $users);	
+  	     return view('managerhome', $users, $posts );	
   	}
-    });
+    })->name('home');
 });

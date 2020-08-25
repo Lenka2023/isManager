@@ -19,21 +19,39 @@
                      <table class="table table-hover table-botdered">
                     <thead>
                         <tr>
-                            <th width="5">No.</th>
-                            <th>Number Name</th>
-                            <th>Email</th>
+                             <th width="3">Check</th>
+                             <th width="3">Id</th>
+                             <th width="3">Title</th>
+                             <th width="3">Text</th>
+                             <th width="3"> Name</th>
+                            <th width="3">Email</th>
+                            <th width="3">Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($users as $key=>$value)
                         <tr>
-                            <td>{{$key+1}}</td>
+                            <td></td>
+                            
                             <td>{{$value->name}}</td>
                             <td>{{$value->email}}</td>
+                            <td>{{$value->time}}</td>
                         </tr>
+                         @endforeach
+                         @foreach($posts as $key=>$value)
+                        <tr>
+                            <td></td>
+                             
+                             <td>{{$value->id}}</td>
+                            <td>{{$value->title}}</td>
+                            <td>{{$value->text}}</td>
+                             <td>{{$value->created_at}}</td>
+                             
+                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+
                   </div>
             </div>
         </div>
