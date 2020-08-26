@@ -32,17 +32,15 @@
                         @foreach($users as $key=>$value)
                         <tr>
                             <td></td>
-                            
-                            <td>{{$value->name}}</td>
+                           <td>{{$value->name}}</td>
                             <td>{{$value->email}}</td>
                             <td>{{$value->time}}</td>
                         </tr>
                          @endforeach
                          @foreach($posts as $key=>$value)
                         <tr>
-                            <td></td>
-                             
-                             <td>{{$value->id}}</td>
+                            <td><input type="checkbox" id="vehicle1" name="vehicle1" value=""></td>
+                            <td>{{$value->id}}</td>
                             <td>{{$value->title}}</td>
                             <td>{{$value->text}}</td>
                              <td>{{$value->created_at}}</td>
@@ -51,7 +49,7 @@
                         @endforeach
                     </tbody>
                 </table>
-
+<img src="{{asset("storage/pictures/2.txt")}}">
                   </div>
             </div>
         </div>

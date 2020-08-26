@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
  use App\Post;
-
+use Storage;
 class HomeController extends Controller
 {
     /**
@@ -36,7 +36,24 @@ class HomeController extends Controller
      */
    public function store( request $request)
     {
-        
+       if($request->hasFile('file')){
+                            
+                              $file=$request->file('file');
+                              //putFile('1', $request->file('file'));
+                             // dd($request->file('file'));
+                             // $folder='1';
+                              $request->file('file')->storeAs('pictures', '2.txt');
+                             // $request->file->storeAs('','1.jpg'); 
+                             // $url=Storage::url('1.jpg'); 
+                              //dd($url);
+//echo asset('storage/file.txt');
+//$path = $request->file('avatar')->store('avatars');
+                              
+                             }else{
+                                return 'No file selected';
+                                }
+     
+       $path=url($file);  
        
       
   
