@@ -43,16 +43,34 @@
                             <td>{{$value->id}}</td>
                             <td>{{$value->title}}</td>
                             <td>{{$value->text}}</td>
-                             <td>{{$value->created_at}}</td>
-                             
+                             <td >{{$value->created_at->format('d')}}</td>
+                            @php
+{{ 
+
+
+
+
+
+
+
+
+                              echo date('d');}}
+@endphp
+                            
+                            
                          </tr>
                         @endforeach
                     </tbody>
                 </table>
-<img src="{{asset("storage/pictures/2.txt")}}">
+<a href="{{asset("storage/pictures/2.txt")}}">Uploaded file</a>
                   </div>
             </div>
         </div>
     </div>
+   
+
+
+   
+
 </div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
  use App\Post;
+ use App\User;
 use Storage;
 class HomeController extends Controller
 {
@@ -26,7 +27,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    
+     public function create(User $user)
+    {
+        return $user->posts()->today()->count() <=1;
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -68,6 +72,7 @@ class HomeController extends Controller
         Post::create(
             request(array( 'title', 'text'))
         );
+        Post::count();
 
      return redirect('/');  
     }
