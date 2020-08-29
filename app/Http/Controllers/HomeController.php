@@ -25,11 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-     public function create(User $user)
-    {
-        return $user->posts()->today()->count() <=1;
+        $this->authorize('create', Post::class);
+
+        if (auth()->user()->manager == 0) {
+            return view('home');
+        } else {
+            $posts['posts'] = Post::all();
+            $users['users'] = User::all();
+            return view('managerhome', $users, $posts );
+        }
     }
 
     /**
@@ -38,42 +42,24 @@ class HomeController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-   public function store( request $request)
+    public function store(Request $request)
     {
-       if($request->hasFile('file')){
-                            
-                              $file=$request->file('file');
-                              //putFile('1', $request->file('file'));
-                             // dd($request->file('file'));
-                             // $folder='1';
-                              $request->file('file')->storeAs('pictures', '2.txt');
-                             // $request->file->storeAs('','1.jpg'); 
-                             // $url=Storage::url('1.jpg'); 
-                              //dd($url);
-//echo asset('storage/file.txt');
-//$path = $request->file('avatar')->store('avatars');
-                              
-                             }else{
-                                return 'No file selected';
-                                }
-     
-       $path=url($file);  
-       
-      
-  
-        $this->validate(request(), [
-           'title' => 'required|min:2',
-            'text' => 'required',
-           
-           
+        $this->authorize('create', Post::class);
 
+        if($request->hasFile('file')){
+            $file=$request->file('file');
+            $request->file('file')->storeAs('pictures', '2.txt');
+        } else {
+            return 'No file selected';
+        }
+
+        $attributes = $this->validate(request(), [
+            'title' => 'required|min:2',
+            'text' => 'required',
         ]);
 
-        Post::create(
-            request(array( 'title', 'text'))
-        );
-        Post::count();
+        auth()->user()->posts()->create($attributes);
 
-     return redirect('/');  
+        return redirect('/');
     }
 }

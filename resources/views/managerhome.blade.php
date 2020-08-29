@@ -43,19 +43,8 @@
                             <td>{{$value->id}}</td>
                             <td>{{$value->title}}</td>
                             <td>{{$value->text}}</td>
-                             <td >{{$value->created_at->format('d')}}</td>
-                            @php
-{{ 
-
-
-
-
-
-
-
-
-                              echo date('d');}}
-@endphp
+                             <td >{{$value->created_at}}</td>
+                           
                             
                             
                          </tr>
