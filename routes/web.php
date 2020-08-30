@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Auth::routes();
 
 Route::group(['middleware'=>['web', 'auth']],function(){
@@ -23,13 +23,7 @@ Route::group(['middleware'=>['web', 'auth']],function(){
    });
   Route::get('/home', 'HomeController@index')->name('home'); 
   Route::post('/home', "HomeController@store");
-  /*Route::get('/home', function(){   
-  	if(Auth::user()->manager==0){
-  	     return view('home');	  	     
-  	}else{
-  		$posts['posts'] = \App\Post::all();
-  		$users['users'] = \App\User::all();
-  	     return view('managerhome', $users, $posts );	
-  	}
-    })->name('home');*/
+  Route::get('test-email', 'JobController@enqueue');
+  
 });
+ 

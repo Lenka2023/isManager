@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
- use App\Post;
- use App\User;
+use App\Post;
+use App\User;
 use Storage;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     /**
@@ -58,7 +60,17 @@ class HomeController extends Controller
             'text' => 'required',
         ]);
 
+        $data = [
+            'title' => $request->title,
+            'text' => $request->text,
+           
+        ];
+
         auth()->user()->posts()->create($attributes);
+
+        $manager = User::where('manager', 1)->firstOrFail();
+
+        Mail::to($manager->email)->send(new WelcomeMail($data));
 
         return redirect('/');
     }

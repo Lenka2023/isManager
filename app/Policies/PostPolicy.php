@@ -42,8 +42,8 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        //die("I'm here");
-        return $user->posts()->whereDate('created_at','=', Carbon::today())->get()->count() <= 1;
+        
+       return $user->posts()->whereDate('created_at','=', Carbon::today())->get()->count() < 1;
     }
 
     /**
