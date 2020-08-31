@@ -6,15 +6,13 @@ use Illuminate\Http\Request;
 use App\Jobs\SendEmail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
-
+use App\User;
 class JobController extends Controller
 {
     public function enqueue(Request $request)
     {
-        $emailJob = (new SendEmail([
-            'email' => User::where('manager', 1)->firstOrFail()->email
-        ]))
-            ->delay(Carbon::now()->addMinutes(5));
+    	$details=[ 'email' => User::where('manager', 1)->firstOrFail()->email];
+        $emailJob = (new SendEmail($details))->delay(Carbon::now()->addSeconds(10));
 
         SendEmail::dispatch($emailJob);
     }
