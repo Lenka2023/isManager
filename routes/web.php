@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +22,7 @@ Route::group(['middleware'=>['web', 'auth']],function(){
    });
   Route::get('/home', 'HomeController@index')->name('home'); 
   Route::post('/home', "HomeController@store");
-  Route::get('test-email', 'JobController@enqueue');
+ 
   
 });
- 
+ Route::get('test-email', 'JobController@enqueue');

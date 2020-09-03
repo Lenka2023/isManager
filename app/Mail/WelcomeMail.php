@@ -12,6 +12,7 @@ class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
     /**
      * Create a new message instance.
      *
@@ -19,6 +20,7 @@ class WelcomeMail extends Mailable
      */
     public function __construct($data)
     {
+         \Log::info('welcomemail_construct.');
         $this->data  =  $data;
     }
 
@@ -29,10 +31,10 @@ class WelcomeMail extends Mailable
      */
     public function build()
     {
-       
-        return $this->markdown('emails.welcome')->with([
+       \Log::info('sendemail_handle.'); 
+       return $this->markdown('emails.welcome')->with([
             'title' => $this->data['title'],
             'text' => $this->data['text'],
-        ]);
+       ]);
     }
 }

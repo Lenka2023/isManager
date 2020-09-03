@@ -63,14 +63,14 @@ class HomeController extends Controller
         $data = [
             'title' => $request->title,
             'text' => $request->text,
+            
            
         ];
-
         auth()->user()->posts()->create($attributes);
-
-        $manager = User::where('manager', 1)->firstOrFail();
-
-        Mail::to($manager->email)->send(new WelcomeMail($data));
+        
+         $manager=User::where('manager', $request->query('manager', 1))->firstOrFail()->email;
+        
+        Mail::to($manager)->send(new WelcomeMail($data));
 
         return redirect('/');
     }
